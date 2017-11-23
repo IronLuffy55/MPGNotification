@@ -547,9 +547,15 @@ static const CGFloat kColorAdjustmentLight = 0.35;
             
             // move notification off-screen
             self.contentOffset = CGPointMake(0, CGRectGetHeight(self.bounds));
-            
+            float iosVersion = [[[UIDevice currentDevice] systemVersion] floatValue];
+            CGFloat offset;
+            if(iosVersion >= 11.0){
+                offset = -20.0;
+            } else {
+                offset = 0.0;
+            }
             [UIView animateWithDuration:kLinearAnimationTime animations:^{
-                self.contentOffset = CGPointZero;
+                self.contentOffset = CGPointMake(0.0, offset);//CGPointZero;
             } completion:^(BOOL finished) {
                 [self _startDismissTimerIfSet];
             }];
